@@ -45,11 +45,10 @@ class Map_manager:
             if portal.from_world == self.current_map:
                 point = self.get_object(portal.origin_point)
                 rect = pygame.Rect(point.x, point.y, point.width, point.height)
-
-            if self.player.feet.colliderect(rect):
-                copy_portal = portal
-                self.current_map = portal.target_world
-                self.teleport_player(copy_portal.teleport_point)
+                if self.player.feet.colliderect(rect):
+                    copy_portal = portal
+                    self.current_map = portal.target_world
+                    self.teleport_player(copy_portal.teleport_point)
 
         # colision
         for sprite in self.get_group().sprites():

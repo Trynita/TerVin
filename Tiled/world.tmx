@@ -277,7 +277,7 @@
   <object id="3" type="collision" x="768" y="0" width="32" height="800"/>
   <object id="5" type="collision" x="32" y="0" width="736" height="32"/>
   <object id="6" type="collision" x="32" y="768" width="736" height="32"/>
-  <object id="11" name="player" x="432" y="432">
+  <object id="11" name="player" x="348.333" y="466.667">
    <point/>
   </object>
   <object id="12" type="collision" x="112" y="720" width="208" height="48"/>
@@ -309,7 +309,7 @@
   <object id="38" type="collision" x="175.318" y="101.409" width="69.3333" height="31.6667"/>
   <object id="39" type="collision" x="543.333" y="629" width="69.3333" height="31.6667"/>
   <object id="40" name="enter_house" x="442" y="337.273" width="15.8182" height="23.4545"/>
-  <object id="41" name="enter_house_exit" x="450" y="373.455">
+  <object id="41" name="enter_house_exit" x="449" y="407.455">
    <point/>
   </object>
  </objectgroup>
