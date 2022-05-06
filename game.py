@@ -1,6 +1,4 @@
 import pygame
-import pytmx
-import pyscroll
 from Data.Map.map import Map_manager
 import Data.Settings.Data.data as data
 import Data.Settings.settings as settings
