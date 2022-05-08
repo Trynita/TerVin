@@ -65,7 +65,7 @@ class Map_manager:
     def register_map(self, name, portals=[]):
 
         # Charger la carte clasique
-        tmx_data = pytmx.util_pygame.load_pygame(f"Tiled/world.tmx")
+        tmx_data = pytmx.util_pygame.load_pygame(f"Tiled/{name}.tmx")
         map_data = pyscroll.data.TiledMapData(tmx_data)
         map_layer = pyscroll.orthographic.BufferedRenderer(
             map_data, self.screen.get_size())
