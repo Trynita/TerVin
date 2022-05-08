@@ -33,7 +33,9 @@ class Map_manager:
 
         self.register_map("world", portals=[
             Portal(from_world="world", origin_point="enter_house",
-                   target_world="house", teleport_point="spawn_house")
+                   target_world="house", teleport_point="spawn_house"),
+            Portal(from_world="world", origin_point="enter_house2",
+                   target_world="house2", teleport_point="spawn_house2")
         ], npcs=[
             NPC("paul", nb_points=4, dialog=["Bonne aventure", "je m'appel Paul", "bonne chance !"]),
             NPC("robin", nb_points=2, dialog=["Hey moi c'est Robin", "Comment ca va bien ? ", "Super a bientôt"])
@@ -45,6 +47,11 @@ class Map_manager:
             NPC("boss", nb_points=2, dialog=["Yo moi je suis le BOSS", "Fais pas le malin ou je te nique ta r*** !"])
         ])
 
+        self.register_map("house2", portals=[
+            Portal(from_world="house2", origin_point="exit_house",
+                   target_world="world", teleport_point="house_exit2")
+        ])
+
         self.teleport_player("player")
         self.teleport_npcs()
 
@@ -52,6 +59,8 @@ class Map_manager:
         for sprite in self.get_group().sprites():
             if sprite.feet.colliderect(self.player.rect) and type(sprite) is NPC:
                 dialog_box.execute(sprite.dialog)
+
+        
 
 
     def check_collision(self):

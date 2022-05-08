@@ -14,7 +14,9 @@ class Game:
         self.map = "world"
 
         # Affichage de la fenêtre
+        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
         self.screen = pygame.display.set_mode((settings.DISPLAY_X, settings.DISPLAY_Y))
+
         pygame.display.set_caption(data.GAMENAME)
 
         self.player = Player()
@@ -66,6 +68,6 @@ class Game:
                     if event.key == pygame.K_SPACE:
                         self.map_manager.check_npc_collision(self.dialog_box)
 
-            clock.tick(60)
+            clock.tick(settings.FPS)
 
         pygame.quit()

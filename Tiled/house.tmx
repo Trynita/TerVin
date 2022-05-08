@@ -143,6 +143,5 @@
  <objectgroup id="5" name="NPCpath">
   <object id="64" name="boss_path1" x="63.75" y="32.25" width="16.75" height="15.75"/>
   <object id="65" name="boss_path2" x="272.5" y="31.75" width="15.75" height="16.25"/>
-  <object id="66" x="258.5" y="34.5"/>
  </objectgroup>
 </map>
