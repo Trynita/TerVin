@@ -3,6 +3,8 @@ import pygame
 import pytmx
 import pyscroll
 
+from Characters.Player.player import NPC
+
 
 @dataclass
 class Portal:
@@ -19,6 +21,7 @@ class Map:
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
     portals: list[Portal]
+    npcs: list[NPC]
 
 
 class Map_manager:
@@ -31,13 +34,25 @@ class Map_manager:
         self.register_map("world", portals=[
             Portal(from_world="world", origin_point="enter_house",
                    target_world="house", teleport_point="spawn_house")
+        ], npcs=[
+            NPC("paul", nb_points=4, dialog=["Bonne aventure", "je m'appel Paul", "bonne chance !"]),
+            NPC("robin", nb_points=2, dialog=["Hey moi c'est Robin", "Comment ca va bien ? ", "Super a bientôt"])
         ])
         self.register_map("house", portals=[
             Portal(from_world="house", origin_point="exit_house",
                    target_world="world", teleport_point="enter_house_exit")
+        ], npcs=[
+            NPC("boss", nb_points=2, dialog=["Yo moi je suis le BOSS", "Fais pas le malin ou je te nique ta r*** !"])
         ])
 
         self.teleport_player("player")
+        self.teleport_npcs()
+
+    def check_npc_collision(self, dialog_box):
+        for sprite in self.get_group().sprites():
+            if sprite.feet.colliderect(self.player.rect) and type(sprite) is NPC:
+                dialog_box.execute(sprite.dialog)
+
 
     def check_collision(self):
         # portails
@@ -53,6 +68,13 @@ class Map_manager:
 
         # colision
         for sprite in self.get_group().sprites():
+
+            if type(sprite) is NPC:
+                if sprite.feet.colliderect(self.player.rect):
+                    sprite.speed_walk = 0
+                else:
+                    sprite.speed_walk= 1
+
             if sprite.feet.collidelist(self.get_walls()) > -1:
                 sprite.move_back()
 
@@ -62,7 +84,7 @@ class Map_manager:
         self.player.position[1] = point.y
         self.player.save_location()
 
-    def register_map(self, name, portals=[]):
+    def register_map(self, name, portals=[], npcs=[]):
 
         # Charger la carte clasique
         tmx_data = pytmx.util_pygame.load_pygame(f"Tiled/{name}.tmx")
@@ -82,7 +104,11 @@ class Map_manager:
         group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=5)
         group.add(self.player)
 
-        self.maps[name] = Map(name, walls, group, tmx_data, portals)
+        # recuperer les npcs pour les ajouter au groupes
+        for npc in npcs:
+            group.add(npc)
+
+        self.maps[name] = Map(name, walls, group, tmx_data, portals, npcs)
 
     def get_map(self):
         return self.maps[self.current_map]
@@ -96,6 +122,15 @@ class Map_manager:
     def get_object(self, name):
         return self.get_map().tmx_data.get_object_by_name(name)
 
+    def teleport_npcs(self):
+        for map in self.maps:
+            map_data = self.maps[map]
+            npcs = map_data.npcs
+
+            for npc in npcs:
+                npc.load_points(map_data.tmx_data)
+                npc.teleport_spawn()
+
     def draw(self):
         self.get_group().draw(self.screen)
         self.get_group().center(self.player.rect.center)
@@ -103,3 +138,6 @@ class Map_manager:
     def update(self):
         self.get_group().update()
         self.check_collision()
+
+        for npc in self.get_map().npcs:
+            npc.move()
