@@ -29,13 +29,13 @@ class Game:
 
         if pressed[pygame.K_ESCAPE]:
             self.running = False
-        elif pressed[pygame.K_UP]:
+        if pressed[pygame.K_UP]:
             self.player.move_player("up")
-        elif pressed[pygame.K_DOWN]:
+        if pressed[pygame.K_DOWN]:
             self.player.move_player("down")
-        elif pressed[pygame.K_RIGHT]:
+        if pressed[pygame.K_RIGHT]:
             self.player.move_player("right")
-        elif pressed[pygame.K_LEFT]:
+        if pressed[pygame.K_LEFT]:
             self.player.move_player("left")
 
 
