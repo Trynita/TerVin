@@ -6,7 +6,7 @@ class AnimateSprite(pygame.sprite.Sprite):
     def __init__(self, name):
         super().__init__()
         self.sprite_sheet = pygame.image.load(
-            f"Assets/Characters/Player/{name}.png")
+            f"Assets/Characters/Player/{name}.png").convert_alpha()
         self.animation_index = 0
         self.animation_speed = 0
         self.images = {

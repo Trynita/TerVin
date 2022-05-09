@@ -20,8 +20,8 @@ class Map:
     walls: list([pygame.Rect])
     group: pyscroll.PyscrollGroup
     tmx_data: pytmx.TiledMap
-    portals: list[Portal]
-    npcs: list[NPC]
+    portals: list([Portal])
+    npcs: list([NPC])
 
 
 class Map_manager:

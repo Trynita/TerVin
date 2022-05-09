@@ -14,8 +14,8 @@ class Game:
         self.map = "world"
 
         # Affichage de la fenêtre
-        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
-        self.screen = pygame.display.set_mode((settings.DISPLAY_X, settings.DISPLAY_Y))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)
+        # self.screen = pygame.display.set_mode((settings.DISPLAY_X, settings.DISPLAY_Y))
 
         pygame.display.set_caption(data.GAMENAME)
 
